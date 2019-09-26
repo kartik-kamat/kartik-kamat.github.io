@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {equationNumbers: {autoNumber: "all" } 
+  }
+});
+</script>
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<style>
+p{
+font-family:"Calibri";
+font-size:24px
+}
+a {
+color:mediumslateblue;
+}
+</style>
+</head>
+<h2 align="center" style="font-size:28px"><u> On the motion of the center of mass in solids with harmonic springs </u></h2>
+<a style="color:brown; font-size:25px"href="index.html" class="button">Home</a>
+<p>
+Frenkel-Ladd Einstein crystal approach$^1$ is a very popular approach to calculate absolute free-energies of real crystals by reversibly transforming them to Einstein crystals. Several papers have discussed the weak divergence of $\Big\langle\frac{\partial H_{\lambda}}{\partial \lambda} \Big\rangle_{\lambda}$ associated with the transformation process.$^{2}$ The problem is handled by suppressing the effective translation of the system. Vega and Noya's Einstein molecule approach $^3$ does this by fixing 1 particle in the system while in the Frenkel-Ladd method this is typically done by constraining the motion of the center of mass of the system.$^2$ </p> 
+<p>
+We present some analysis for the motion of the center of mass in a molecular crystal system with harmonic springs using the Nose-Hoover thermostat. The springs restrain each atom in the molecule to some reference point in space. The motion of the center of mass is automatically zeroed out by initializing a system with zero total momentum and choosing the ratio of the spring constants in a specific way. 
+</p> 
+<p>The Nose-Hoover equations of motion$^4$ are
+$$
+\dot{\textbf{r}}_i=\textbf{p}_i/m_i
+\\
+\dot{\textbf{p}}_i=F(\textbf{r}^N)-\zeta\textbf{p}_i
+\\
+\dot{\zeta}=\frac{1}{Q} \Big(\sum_{i=1}^N \textbf{p}^2_i/m_i -3N k_BT\Big)
+
+$$
+where $\zeta$ is a friction coefficient that facilitates the thermostatting procedure and $Q$ controls the coupling strength. Thus the commonly used two step update version of the velocity Verlet algorithm for the above equations is of the form
+$$
+\textbf{r}_i(t+\delta t)=\textbf{r}_i(t)+\textbf{v}_i(t)\delta t+\frac{\delta t^2}{2}(\textbf{F}_i(t)/m_i-\zeta(t) \textbf{v}_i(t))
+
+\\
+\\
+\textbf{v}_i(t+\delta t/2)=\textbf{v}_i(t)+\frac{\delta t}{2}(\textbf{F}_i(t)/m_i-\zeta(t) \textbf{v}_i(t))
+
+\\
+\\
+\textbf{F}_i(t+\delta t)=\textbf{F}_i(\textbf{r}_i(t+\delta t))
+
+\\
+\\
+\textbf{v}_i(t+\delta t)=\frac{\textbf{v}_i(t+\delta t/2)+\frac{\delta t}{2}\textbf{F}_i(t+\delta t)}{1+\frac{\delta t}{2}\zeta(t+\delta t)}
+$$
+</p>
+<p>The first three equations above are straightforward as they directly follow from the velocity Verlet scheme. The last equation however looks slightly different as $\textbf{v}_i(t +\delta t)$ update equation uses the friction on the velocity at $\textbf{v}_i(t +\delta t)$ (instead of $\textbf{v}_i(t +\delta t/2))$. The interested reader is reffered to Appendix D in Martyna et.al.$^5$ Additionally, please note that we have skipped over the update scheme for $\zeta(t)$ as it is not important for the analysis that follows.<p>
+<p> The total force on any particle ($\textbf{F}_i$) is a sum of the conservative force ($\textbf{F}^C_i$) and a spring force ($\textbf{F}^S_i$). Multiplying both sides of the position update equation in 2 by $\frac{m_i}{M}$ ($M$ is the total mass of the system) and summing over all particles to give
+$$
+\frac{1}{M}\sum_{i=1}^N m_i(\textbf{r}_i(t+\delta t)-\textbf{r}_i(t))=\frac{\delta t}{M}\sum_{i=1}^N m_i\textbf{v}_i(t)+\frac{\delta t^2}{2M}\Big(\sum_{i=1}^N\textbf{F}^S_i(t)-\zeta(t) \sum_{i=1}^N m_i\textbf{v}_i(t)\Big)
+$$
+We used the idea that the sum of the conservative forces yields zero and $\zeta(t)$ is particle independent. The left hand side of the above equation can be interpreted as the change in the cartesian coordinates of the center of mass ($\Delta \textbf{r}^{COM}_{t \rightarrow t+ \delta t}$). The total momentum at $t$ is given by the term $\sum_{i=1}^N m_i\textbf{v}_i(t)$ and we shall now denote it as $\textbf{p}(t)$. Clearly, the change in the cartesian coordinates between timesteps is zero if $\textbf{p}(t)=0$ and if the term $\sum_{i=1}^N\textbf{F}^S_i(t)$ is somehow set to zero. The term $\sum_{i=1}^N\textbf{F}^S_i(t)$ physically is the total external force acting on the system and the use of harmonic springs allows us to formally write it as
+$$
+\textbf{F}_{ext}(t)=\sum_{i=1}^N\textbf{F}^S_i(t)=-\sum_{i=1}^N k_i (\textbf{r}_i(t)-\textbf{r}_i(0))=-K\sum_{i=1}^N m_i (\textbf{r}_i(t)-\textbf{r}_i(0))
+
+$$
+where in the last step we define a system with the spring constants chosen proportional to the masses $m_i$. Let us try to observe the effect of this choice. The system is initialised with $\textbf{p}(0)=0$ and clearly $\textbf{F}_{ext}(0)=0$. From equation 3 it then follows that
+$$
+\sum_{i=1}^N m_i(\textbf{r}_i(\delta t)-\textbf{r}_i(0))=0
+
+$$
+<p>The above equation is nothing but equation 4 without the $K$. In other words, $\textbf{F}_{ext}(\delta t)=0$. Thus the net external force acting on the system did not change in 1 timestep. Similar analysis is now applied to the velocity update equations in equation 2. It can be similarly shown starting with $\textbf{p}(0)=0$ that $\textbf{p}(\delta t)=0$. Thus, iteration after iteraton at the end of each timestep $\textbf{F}_{ext}$, $\Delta \textbf{r}^{COM}_{t \rightarrow t+ \delta t}$ and $\textbf{p}$ continue to be zero.</p>
+
+<p>With this simple analysis we have tried to illustrate that for a system </p>
+<p style="margin:1px">1) initialised with zero linear momentum and zero external force,</p>
+<p style="margin:1px">2) harmonic spring constants for particles chosen according to the ratio of their masses and, </p>
+<p style="margin:1px">3) propagated using the Nose-Hoover algorithm </p>
+<p>will exhibit no center of mass motion.</p>
+
+<h2><u>References</u></h2>
+<p style="margin:0">1. Frenkel, D., and Ladd, A.J. <i> J. Chem. Phys.,</i> 81, 1984.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/abs/10.1063/1.448024">Link</a></p>
+<p style="margin:0">2. Polson, J.M., Trizac, E., Pronk, S. and Frenkel, D. <i> J. Chem. Phys.,</i> 112, 2000.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/abs/10.1063/1.481102">Link</a></p>
+<p style="margin:0">3. Vega, C. and Noya, E.G. <i> J. Chem. Phys.,</i> 127, 2007.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/full/10.1063/1.2790426">Link</a></p>
+<p style="margin:0">4. Frenkel D, Smit B. Understanding molecular simulation: from algorithms to applications. Elsevier; 2001.</p>
+<p style="margin:0">5. Martyna, G.J., Tobias, D.J., and Klein, M.L. <i> J. Chem. Phys.,</i> 101, 1994.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/abs/10.1063/1.467468">Link</a></p>
+</body>
+</html>

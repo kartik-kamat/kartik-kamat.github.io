@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {equationNumbers: {autoNumber: "all" } 
+  }
+});
+</script>
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+<style>
+p{
+font-family:"Calibri";
+font-size:24px
+}
+a {
+color:mediumslateblue;
+}
+</style>
+</head>
+<h2 align="center" style="font-size:28px"><u>Calculation of kinetic partition function with constraint</u></h2>
+<a style="color:brown; font-size:25px"href="index.html" class="button">Home</a>
+<p> Many studies of systems using molecular dynamics are often simulated with some constraint on the center of mass. As shown by <a href="https://aip.scitation.org/doi/abs/10.1063/1.481102"> Polson et.al</a>$^1$ the ratio of the kinetic partition function of the constrained to the unconstrained system has a neat analytical representation (see equation 6 in their paper).</p>
+
+<p>The solution comes down to solving the following integral 
+$$
+Q^{CM}_K=\int d\vec{\textbf{p}}^N \exp(-\beta\sum_{i=1}^N\frac{\vec{\textbf{p}}^2_i}{2 m_i}) \ \delta\Big(\sum_{i=1}^N \vec{\textbf{p}}_i - \vec{\textbf{0}}\Big)
+$$
+Physically $Q^{CM}_K$ represents the kinetic partition function of system where the total momentum of the system is constrained to $\vec{\textbf{0}}$. Solving an integral with a delta function in 1D is straightforward. The 3D argument inside the delta function seems to be a bit problematic at first. However the problem can be solved by generalizing the above equation in the following way (follows <a href="https://aip.scitation.org/doi/abs/10.1063/1.2889939"> Uline et.al</a>$^2$)
+$$
+Q^{CM}_K(N,V,T,\vec{\textbf{P}})=\int d\vec{\textbf{p}}^N \exp(-\beta\sum_{i=1}^N\frac{\vec{\textbf{p}}^2_i}{2 m_i}) \ \delta\Big(\sum_{i=1}^N \vec{\textbf{p}}_i - \vec{\textbf{P}}\Big)
+$$
+where $\vec{\textbf{P}}$ is some general constraint on the total momentum. The volume of the system ($V$) does not formally affect the value of the above integral but we write it here just for completeness. We can now Fourier transform the equation with respect to $\vec{\textbf{P}}$ to yield 
+$$
+\widetilde{Q}^{CM}_K(N,V,T,\vec{\textbf{k}})=\frac{1}{(2\pi)^{d/2}}\int d\vec{\textbf{p}}^N \exp(-\beta\sum_{i=1}^N\frac{\vec{\textbf{p}}^2_i}{2 m_i}) \ \int d\vec{\textbf{P}} \exp(-i\vec{\textbf{k}}.\vec{\textbf{P}}) \ \delta\Big(\sum_{i=1}^N \vec{\textbf{p}}_i - \vec{\textbf{P}}\Big)
+
+\\
+
+=\frac{1}{(2\pi)^{d/2}}\int d\vec{\textbf{p}}^N \exp(-\beta\sum_{i=1}^N\frac{\vec{\textbf{p}}^2_i}{2 m_i}) \ \exp(-i\vec{\textbf{k}}.\sum_{i=1}^N\vec{\textbf{p}}_i)
+
+$$
+where $d$ is the dimensionality of the problem and the resulting transform is now separable. Each integral is a Gaussian and the result is
+$$
+\widetilde{Q}^{CM}_K=\frac{1}{(2\pi)^{d/2}} \Big(\frac{2\pi}{\beta}\Big)^{dN/2} \exp\Big(-\frac{\vec{\textbf{k}}^2}{2 \beta}\sum_{i=1}^N m_i\Big) \prod_{i=1}^N m_i^{d/2} 
+$$
+which can now be Fourier inverted to yield
+$$
+Q^{CM}_K(N,V,T,\vec{\textbf{P}})=\Big(\frac{2\pi}{\beta}\Big)^{d(N-1)/2} \frac{1}{(\sum_{i=1}^N m_i)^{d/2}} \ \exp\Big(-\frac{\beta \ \vec{\textbf{P}}^2}{2\sum_{i=1}^N m_i}\Big)\prod_{i=1}^N m_i^{d/2} 
+$$
+</p>
+<p>For the case when the total momentum of the system is constrained to zero (zero center of mass velocity) the value of the exponential term is 1.</p>
+
+<h2><u>References</u></h2>
+<p style="margin:0">1. Polson, J.M., Trizac, E., Pronk, S., and Frenkel, D. <i> J. Chem. Phys.,</i> 112, 2000.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/abs/10.1063/1.481102">Link</a></p>
+<p style="margin:0">2. Uline, M.J., Siderius D.W., and Corti D.S. <i> J. Chem. Phys.,</i> 128, 2008.&nbsp;&nbsp;<a href="https://aip.scitation.org/doi/abs/10.1063/1.2889939">Link</a></p>
+</body>
+</html>
