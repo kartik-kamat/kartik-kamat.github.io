@@ -74,34 +74,32 @@ e^{-\beta U(x)}D\frac{\partial}
 $$
 Now we rearrange the above equation and integrate as follows 
 $$
-e^{\beta U(x_1)}\rho(x_1)-e^{\beta U(x)}\rho(x)=-\frac{J}{D}\int_{x}^{x_1} dx' \ e^{\beta U(x')}
+e^{\beta U(x_1)}\rho(x_1)-e^{\beta U(x)}\rho(x)
+=\frac{-J}{D}\int_{x}^{x_1} dx' e^{\beta U(x')}
 $$
-$x_1$ corresponds to the start of the absorbing region and hence $\rho(x_1)=0$. Thus, the above equation simplifies to 
+where  $x_1$ corresponds to the start of the absorbing region and hence $\rho(x_1)=0$. Thus, the above equation simplifies to 
 $$
-\rho(x)=e^{-\beta U(x)}J/D\int_{x}^{x_1} dx' \ e^{\beta U(x')}
-
+\rho(x)=e^{-\beta U(x)}J/D\int_{x}^{x_1} dx' e^{\beta U(x')}
 $$
 At any given time the constant number of reactant species ($N_0$) is 
 $$
 N_0=\int_{-\infty}^{x_1} dx' \rho(x')
 $$
-</p>
-<p>
 From equations 5 and 6 it then follows that 
 $$
-N_0=\int_{-\infty}^{x_1} dx' e^{-\beta U(x')}\frac{J}{D} \int_{x'}^{x_1} dx'' \ e^{\beta U(x'')}
+N_0=\int_{-\infty}^{x_1} dx' e^{-\beta U(x')}\frac{J}{D} \int_{x'}^{x_1} dx'' e^{\beta U(x'')}
 $$
 The above equation can be rewritten first by using the heavy side function and then interchanging the integrals
 $$
 N_0/J=\frac{1}{D}\int_{-\infty}^{x_1} dx' e^{-\beta U(x')}
-\int_{-\infty}^{x_1}dx'' \ e^{\beta U(x'')}\Theta(x''-x') \\
+\int_{-\infty}^{x_1}dx'' e^{\beta U(x'')}\Theta(x''-x') \\
 =\frac{1}{D}\int_{-\infty}^{x_1} dx'' e^{\beta U(x'')}
-\int_{-\infty}^{x_1}dx' \ e^{-\beta U(x')}\Theta(x''-x')
+\int_{-\infty}^{x_1}dx' e^{-\beta U(x')}\Theta(x''-x')
 $$
 where the second integral is non-zero for $x''>x'$ which implies 
 $$
 N_0/J=\frac{1}{D}\int_{-\infty}^{x_1} dx'' e^{\beta U(x'')}
-\int_{-\infty}^{x''}dx' \ e^{-\beta U(x')}
+\int_{-\infty}^{x''}dx' e^{-\beta U(x')}
 $$
 </p>
 <p> Now we consider relating the quantity on the L.H.S to the rate constant $k$.
@@ -124,7 +122,7 @@ $$
 Clearly, $J$ decreases with the decrease in the instantaneous number of the reactant species ($N(t)=N_0e^{-kt}$). However, the rescue and replace conditions maintain the total number of reactant species at any instant to be $N_0$. Thus using $t \rightarrow 0$ for the above result yields $J/N_0=k$. Using this in equation 9 we get 
 $$
 1/k=\frac{1}{D}\int_{-\infty}^{x_1} dx'' e^{\beta U(x'')}
-\int_{-\infty}^{x''}dx' \ e^{-\beta U(x')}
+\int_{-\infty}^{x''}dx' e^{-\beta U(x')}
 $$
 which is the general form of the Kramers result in the high friction limit. We can now make an approximation about the potential energy surface being parabolic at the minimum of the reactant A and at the barrier top 
 $$
