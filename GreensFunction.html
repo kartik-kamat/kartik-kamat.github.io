@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148787810-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-148787810-1');
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {equationNumbers: {autoNumber: "all" } 
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: ["tex2jax.js"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+      processEscapes: true
+    }
+  });
+</script>
+<style>
+p{
+font-family:"Calibri";
+font-size:24px
+}
+a {
+color:mediumslateblue;
+}
+</style>
+</head>
+<h2 align="center" style="font-size:28px"><u> Green's function solution to the inhomogeneous reaction-diffusion equation  </u></h2>
+
+<p style="font-size:20px">
+<i>"The young theoretical physicists of a generation or two earlier subscribed to the belief that: If you haven't done something important by age 30, you never will. 
+Obviously, they were unfamiliar with the history of George Green, the miller of Nottingham…"</i> - Julian Schwinger$^1$
+</p>
+<a style="color:brown; font-size:25px"href="index.html" class="button">Home</a>
+<p>
+Green's functions are routinely used to solve inhomogeneous ordinary and partial differential equations.$^{2}$ Green's function 
+approaches are also used to solve homogeneous differential equations with inhomogeneous boundary conditions. Here we will discuss
+some of the properties of the Green's functions and highlight their importance in a reaction-diffusion equation context. 
+</p>
+
+<p> <u><b>Some background on Green's functions </b></u></p>
+<p>
+First we consider an example of Green's functions with spatial variables only.
+Suppose we are to solve an inhomogeneous Sturm-Lioville problem 
+$$
+\hat{L}y(x)=-\frac{d}{dx}(p(x)\frac{d}{dx}y(x))+q(x)y(x)=f(x)
+$$
+subject to the homogeneous boundary conditions
+$$
+\alpha_1y(a)+\alpha_2\frac{dy}{dx}\Bigr|_{x=a}=0 \\ 
+\beta_1y(b)+\beta_2\frac{dy}{dx}\Bigr|_{x=b}=0 \\
+x\in[a,b]
+$$
+This problem is transposed into a problem to solve for a function $G(x|x')$ such that
+$$
+\hat{L}G(x|x')=\delta(x-x')
+$$
+where the function $G(x|x')$ obeys the same homogeneous boundary conditions as above. Clearly, the inhomogeneous term
+has been replaced with a point source term. The idea behind solving for $G(x|x')$ is that the general solution to 
+the inhomogeneous problem ($y(x)$) obeys
+$$
+y(x)=\int^b_a f(x')G(x|x')dx'
+$$
+$G(x|x')$ is called a Green's functions or sometimes even referred to as the fundamental solution to the operator 
+$\hat{L}$. In our example case the analytical expressions for the Green's function of the Sturm-Liouville problem 
+are well known. Hence solving the inhomogeneous problem involves evaluating the above integral. The physical interpretation 
+of the above equation is very interesting as well. The Green's function represents the response of the system at $x$ because of a point 
+impulse at $x'$. Thus, the solution to the inhomogeneous problem (or the total effect at a point $x$) is a superposition 
+of responses to point impulses (at $x'$) of strength $f(x')$. 
+Many operators frequently used in physics and engineering have analytical expressions for the associated Green's
+function.   
+</p>
+<p>
+Green's functions for partial differential equations are functions of the spatial ($x$) as well as time ($t$) variables. We illustrate this 
+by considering the solution of the 1-D diffusion problem with an arbitrary initial 
+condition.
+$$
+\frac{\partial \rho(x,t)}{\partial t}=\alpha^2 \frac{\partial^2 \rho(x,t)}{\partial x^2}
+$$
+subject to the initial condition $\rho(x,0)=\phi(x)$. Fourier transforming both sides with respect to the spatial variable
+yields
+$$
+\frac{\partial \tilde{\rho}(k,t)}{\partial t}=-\alpha^2k^2\tilde{\rho}(k,t)
+$$
+The above equation is an ODE and can be easily solved to give 
+$$
+\tilde{\rho}(k,t)=\tilde{\rho}(k,0)e^{-\alpha^2k^2t}
+$$
+Now we first consider a case when the initial condition is a point impulse $\rho(x,0)=\delta(x-x')$.
+The fourier transform of the impulse initial condition is $\tilde{\rho}(k,0)=e^{-i k x'}$.
+Thus, the inverse fourier transform of equation 7 yields
+$$
+\rho(x,t)=\frac{1}{2\pi} \int_{-\infty}^{\infty} dk \ e^{ikx}e^{-ikx'}e^{-\alpha^2k^2t}=\frac{1}{\sqrt{4\pi\alpha^2t}}e^{-(x-x')^2/4\alpha^2t}
+$$
+where completion of squares is used to convert the integral into a Gaussian integral.
+Once again starting from equation 7 if we were to solve for an arbitrary initial 
+condition instead of the impulse we must fourier invert both sides of equation 7. First we note 
+that the individual fourier inversions of the quantities on the RHS yields $F^{-1}[\tilde{\rho}(k,0)]=\phi(x)$
+and $F^{-1}[e^{-\alpha^2k^2t}]=\frac{1}{\sqrt{4\pi\alpha^2t}}e^{x^2/4\alpha^2t}$. Additionally, we 
+know that the fourier transform of a convolution integral is a product of fourier transforms of
+the individual functions. Thus, the inverse fourier transform of equation 7 results in a convolution integral 
+$$
+\rho(x,t)=\int_{-\infty}^{\infty}dx' \ \phi(x') \frac{1}{\sqrt{4\pi\alpha^2t}} e^{-(x-x')^2/4\alpha^2t}
+$$
+Note that the solution to the impulse response (equation 8) appears inside the integral for the 
+complete solution (equation 9). Thus, the function $\frac{1}{\sqrt{4\pi\alpha^2t}}e^{(x-x')^2/4\alpha^2t}$
+is referred to as the impulse-response function or Green's function for the 1-D diffusion equation. 
+Thus, formally the complete solution is 
+$$
+\rho(x,t)=\int_{-\infty}^{\infty}dx' \ \phi(x') G(x,t|x') \\
+
+G(x,t|x')=\frac{1}{\sqrt{4\pi\alpha^2t}}e^{(x-x')^2/4\alpha^2t}
+$$
+The Green's function ($G(x,t|x')$) here physically represents the response 
+of the system at a point $x$ and at time $t$ due to an impulse at at a point $x'$
+and time $t=0$. Thus, the complete response at a point $x$ at time $t$ is a continuous superposition of the intial $t=0$ impulses 
+of strength $\phi(x')$.
+</p>
+<p> <u><b> The inhomogeneous reaction-diffusion equation </b></u></p>
+<p>
+Here we summarize how the Green's function solution to the general inhomogeneous reaction-diffusion
+equation relates to the complete solution of the problem. We came across a similar treatment in the book by Evans et. al.$^3$ (see Chapter 5). The key observation is note that the
+procedure described there may be applied to the reaction-diffusion problem as well. We consider the governing equation
+$$
+\frac{\partial u(\vec{r},t)}{\partial t}=\nabla^2u(\vec{r},t)-u(\vec{r},t)+f(\vec{r},t)
+$$
+where the first term on the RHS is the diffusion term, the second term is the kinetic consumption term (first order) and
+the last term is the inhomogeneous term. Note that we have ignored the constants like the diffusion 
+coefficient ($D$), rate constant ($k$) for simplicity as it doesn't affect the analysis that follows. 
+
+Rearranging the above equation yields 
+$$
+\Big( \nabla^2-1-\frac{\partial}{\partial t} \Big)u(\vec{r},t)=-f(\vec{r},t)
+$$
+The Green's function as shown previously is obtained by replacing the inhomogeneous term with a 
+point source in spatial and time variables 
+$$
+\Big( \nabla^2-1-\frac{\partial}{\partial t} \Big)G(\vec{r},t|\vec{r}',0)=-\delta^3(\vec{r}-\vec{r}')\delta(t-0)
+$$
+We now Laplace transform both sides of equations 12 and 13 with respect to $t$
+to yield 
+$$
+\nabla^2\tilde{u}-\tilde{u}-s\tilde{u}+u(\vec{r},0^-)=-\tilde{f} \\
+\nabla^2\tilde{G}-\tilde{G}-s\tilde{G}+G(\vec{r},0^-|\vec{r}')=-\delta^3(\vec{r}-\vec{r}')
+$$
+where the Laplace transform limit started slightly to the left of $0$ (denoted as $0^-$)
+instead of $0$. This is to ensure that the Dirac delta function in $t$ is comfortably integrated over.
+The term $u(\vec{r},0^-)$ is nothing but the initial condition $u(\vec{r},0)$. The term 
+$G(\vec{r},0^-|\vec{r}')$, however, is zero. This is because of the causality property 
+of Green's functions. In other words, Green's functions are responses of the system 
+to impulse reponses applied at time $t=0$. The response of the system before the impulse 
+is applied is declared to be zero. We now multiply the top equation in 14 by $\tilde{G}$
+and the bottom equation by $\tilde{u}$ and subtract the two resulting relations to yield
+$$
+\tilde{G}\nabla^2\tilde{u}-\tilde{u}\nabla^2\tilde{G}+u(\vec{r},0)\tilde{G}
+=-\tilde{f}\tilde{G}+\delta^3(\vec{r}-\vec{r}')\tilde{u}
+$$
+Both sides of the equations can now be integrated over the volume $V$ 
+$$
+\int_V(\tilde{G}\nabla^2\tilde{u}-\tilde{u}\nabla^2\tilde{G})\ d^3\vec{r}'+\int_Vu(\vec{r},0)\tilde{G}\ d^3\vec{r}'
+=-\int_V\tilde{f}\tilde{G}\ d^3\vec{r}'+\tilde{u}(\vec{r},s)
+$$
+We may now use Green's second identity to convert the volume integral term
+into a surface integral term as given by 
+$$
+\int_V(\tilde{G}\nabla^2\tilde{u}-\tilde{u}\nabla^2\tilde{G})\ d^3\vec{r}'
+=\oint_S(\tilde{G}\nabla\tilde{u}-\tilde{u}\nabla\tilde{G}).\hat{n}\ d^2\vec{r}'
+$$
+Using the above equation in equation 16 and rearranging the terms yields 
+$$
+\tilde{u}(\vec{r},s)=\int_V\tilde{f}(\vec{r}',s)\tilde{G}(\vec{r},s|\vec{r}')d^3\vec{r}'
++
+\int_Vu(\vec{r}',0)\tilde{G}(\vec{r},s|\vec{r}')\ d^3\vec{r}'
++
+\oint_S(\tilde{G}\nabla\tilde{u}-\tilde{u}\nabla\tilde{G}).\hat{n}\ d^2\vec{r}'
+$$
+The inverse Laplace transform of the LHS is our complete solution of interest! We additionally note
+that the first and last terms of the RHS are products of Laplace transforms. Hence, the inverse Laplace 
+of these terms will yield a convolution integral in time. Accordingly,
+$$
+u(\vec{r},t)=\int_0^t\int_Vf(\vec{r}',t')G(\vec{r},t-t'|\vec{r}')\ d^3\vec{r}' dt'
++\int_Vu(\vec{r}',0)G(\vec{r},t|\vec{r}')d^3\vec{r}'
++\int_0^t\oint_S \Big[G(\vec{r},t|\vec{r}')\nabla u(\vec{r},t-t')-u(\vec{r}',t)\nabla G(\vec{r},t-t'|\vec{r}') \Big].\hat{n}\ d^2\vec{r}'dt'
+$$
+which is a general solution to the inhomogeneous reaction-diffusion problem that can 
+be used after solving for the Green's function.
+
+We can now derive some physical insight with the help of the above equation. The complete solution 
+$u(\vec{r},t)$ is a sum of three terms. The first term is the response of the system to the 
+inhomogeneous term. Note that integral over all volume represents the superposition of impulses applied in the domain of the problem and 
+the Green's function has a time argument of $t-t'$ which only accounts for the time elapased since the impulse. The integral over time accounts for the superposition of impulses in time.
+The second term propagates the response of the system arising from the initial condition. The third term is the response of the system because of the 
+boundary conditions. Although it may appear as if $u(\vec{r},t)$ appears on both sides of the above equation, the RHS term is evaluated 
+at the surface of the domain $V$. This implies that the terms inside the integral 
+are determined from the boundary conditions of the problem. Additionally, for homogeneous 
+boundary conditions it can be shown that the third term is zero. This may be easily understood for a one dimensional reaction-diffusion problem with homogeneous boundary conditions. 
+</p>
+<h2><u>References</u></h2>
+<p style="margin:0">1. Biography edited by Ng Y. Julian Schwinger: The Physicist, the Teacher, and the Man. World Scientific, 1996.</p>
+<p style="margin:0">2. Farlow S. Partial Differential Equations for Scientists and Engineers. Dover, 1993.</p>
+<p style="margin:0">3. Evans, G., Blackledge, J., and Yardley, P. Analytic Methods for Partial Differential Equations. Springer, 1999.</p>
+</body>
+</html>
